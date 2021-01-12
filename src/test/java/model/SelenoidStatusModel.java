@@ -10,9 +10,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({
-        "value"
-})
 public class SelenoidStatusModel {
 
     @JsonProperty("value")
@@ -25,19 +22,9 @@ public class SelenoidStatusModel {
         return value;
     }
 
-    @JsonProperty("value")
-    public void setValue(SelenoidValue value) {
-        this.value = value;
-    }
-
     @JsonAnyGetter
     public Map<String, Object> getAdditionalProperties() {
         return this.additionalProperties;
-    }
-
-    @JsonAnySetter
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
     }
 
 }

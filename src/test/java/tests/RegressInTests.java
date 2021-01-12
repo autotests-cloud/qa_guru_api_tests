@@ -34,9 +34,9 @@ public class RegressInTests {
 
     @Test
     void successLoginTest() {
-        String data = "{\n" +
-                "    \"email\": \"eve.holt@reqres.in\",\n" +
-                "    \"password\": \"cityslicka\"\n" +
+        String data = "{" +
+                "    \"email\": \"eve.holt@reqres.in\"," +
+                "    \"password\": \"cityslicka\"" +
                 "}";
 
         given()
@@ -48,6 +48,25 @@ public class RegressInTests {
                 .statusCode(200)
                 .log().body()
                 .body("token", is(notNullValue()));
+    }
+
+    @Test
+    void successLoginWithLogTest() {
+        String data = "{" +
+                "    \"email\": \"eve.holt@reqres.in\"," +
+                "    \"password\": \"cityslicka\"" +
+                "}";
+
+        Response response =
+        given()
+                .contentType(ContentType.JSON)
+                .body(data)
+                .when()
+                .post("/login")
+                .then()
+                .statusCode(200).extract().response();
+
+        System.out.println(response.asString());
     }
 
     @Test

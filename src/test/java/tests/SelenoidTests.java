@@ -113,16 +113,9 @@ public class SelenoidTests {
                 .statusCode(200)
                 .extract().as(SelenoidStatusModel.class);
 
-        System.out.println(selenoidStatusModel.toString());
         String message = selenoidStatusModel.getValue().getMessage();
-
         assertThat(message, containsString("Selenoid"));
     }
-
-    private final ResponseSpecification responseSpec = new ResponseSpecBuilder()
-            .expectBody("value.ready", is(true))
-            .expectBody("value.message", is(notNullValue()))
-            .build();
 
     @Test
     void successStatusReadyWithSpecTest() {
@@ -132,7 +125,12 @@ public class SelenoidTests {
                 .get("https://selenoid.autotests.cloud:4444/wd/hub/status")
                 .then()
                 .log().body()
-                .statusCode(200)
                 .spec(responseSpec);
     }
+
+    private final ResponseSpecification responseSpec = new ResponseSpecBuilder()
+            .expectBody("value.ready", is(true))
+            .expectBody("value.message", is(notNullValue()))
+            .expectStatusCode(200)
+            .build();
 }
